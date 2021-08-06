@@ -1,33 +1,15 @@
 #!/bin/bash
 
-#入力値の読み込み
-read a b
+#エラーメッセージ
+1
+ERROR_EXIT () { # ERROR関数
+echo "$1" >&2 # エラーメッセージ(引数1)を標準エラー出⼒に表⽰
+rm -f /tmp/$$-* # 作ったファイルの削除
+exit 1 # エラー終了
+}
 
-#入力された値aを変数mに代入
-m = $a
-
-#bがmより大きいか比較
-#b>mならmにbを代入
-if [ $b -lt $m ]
-then
-m = $b
-fi
-
-#最大公約数を探すループを回す
-while [ $m -ne 0 ]
-do
-x = `expr $a % $m`
-y = `expr $b % $m`
-
-#xとyが共に0になったら終了
-#最大公約数を出力
-if [ $x -eq 0 -a $y -eq 0 ]
-then
-
-#2つの入力値の最大公約数を出力
-echo $a "と" $b "の最大公約数は" $m
-break
-fi
-m = `expr $m - 1`
-
-done
+./report5.sh > /tmp/$$-result # 結果データをresult-$$に
+echo $a > /tmp/$$-ans # 正解データ（⼿作り）をans-$$に
+echo $b >> /tmp/$$-ans
+diff /tmp/$$-ans /tmp/$$-result || ERROR_EXIT "result err" # 失敗
+rm -f /tmp/$$-* # 後始末
