@@ -1,0 +1,4 @@
+anguage: bash
+script:
+  - echo "Travis CIでテスト自動化"
+  - ./gcd-test.sh
