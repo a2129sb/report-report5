@@ -8,7 +8,7 @@ rm -f /tmp/$$-* # 作ったファイルの削除
 exit 1 # エラー終了
 }
 
-./report5.sh > /tmp/$$-result # 結果データをresult-$$に
+./.sh > /tmp/$$-result # 結果データをresult-$$に
 echo $a > /tmp/$$-ans # 正解データ（⼿作り）をans-$$に
 echo $b >> /tmp/$$-ans
 diff /tmp/$$-ans /tmp/$$-result || ERROR_EXIT "result err" # 失敗
